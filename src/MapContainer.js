@@ -8,8 +8,12 @@ export class MapContainer extends Component {
   }
   render() {
     const { stations } = this.props;
+    const style = {
+      height: '720px',
+    };
     return (
       <Map
+        style={style}
         google={this.props.google}
         zoom={12}
         initialCenter={{
