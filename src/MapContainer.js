@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import keys from './keys';
 
 export class MapContainer extends Component {
   render() {
+    const { stations } = this.props;
     return (
       <Map
         google={this.props.google}
@@ -13,6 +14,13 @@ export class MapContainer extends Component {
           lng: -0.127933,
         }}
       >
+      {stations.map((station, index) =>
+        <Marker
+          key={index}
+          title={station.commonName}
+          position={{ lat: station.lat, lng: station.lon }}
+        />
+      )}
       </Map>
     );
   }

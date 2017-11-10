@@ -23,11 +23,7 @@ class App extends Component {
     const { victoriaLineStations } = this.state;
     return (
       <div>
-        <p>Victoria line stations</p>
-        {victoriaLineStations.map((station, index) =>
-          <li key={index}>{station.commonName}</li>
-        )}
-        <MapContainer />
+        <MapContainer stations={victoriaLineStations} />
       </div>
     );
   }
