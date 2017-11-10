@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
-// import keys from './keys';
+import keys from './keys';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      victoriaLineStations: [],
+    }
+  }
+  componentDidMount() {
+    const { APP_ID: id, API_KEY: key } = keys;
+    const request = `https://api.tfl.gov.uk/line/victoria/stoppoints?app_id=${id}&app_key=${key}`;
+    fetch(request)
+      .then(res => res.json())
+      .then(victoriaLineStations => this.setState({
+        victoriaLineStations,
+      }))
+  }
   render() {
-    // const keyInfo = `API key: ${keys.API_KEY}, App ID: ${keys.APP_ID}`;
+    const { victoriaLineStations } = this.state;
     return (
       <div>
-        <p>hello world</p>
-        {/* <p>{keyInfo}</p> */}
+        <p>Victoria line stations</p>
+        {victoriaLineStations.map((station, index) =>
+          <li key={index}>{station.commonName}</li>
+        )}
       </div>
     );
   }
