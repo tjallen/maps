@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import keys from './keys';
 import MapContainer from './MapContainer';
 import PixiOverlay from './PixiOverlay';
