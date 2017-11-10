@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import keys from './keys';
 import MapContainer from './MapContainer';
+import PixiOverlay from './PixiOverlay';
 
 class App extends Component {
   constructor() {
@@ -17,12 +18,13 @@ class App extends Component {
       .then(res => res.json())
       .then(victoriaLineStations => this.setState({
         victoriaLineStations,
-      }))
+      }));
   }
   render() {
     const { victoriaLineStations } = this.state;
     return (
       <div>
+        <PixiOverlay />
         <MapContainer stations={victoriaLineStations} />
       </div>
     );
