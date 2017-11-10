@@ -10,8 +10,8 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    const { APP_ID: id, API_KEY: key } = keys;
-    const request = `https://api.tfl.gov.uk/line/victoria/stoppoints?app_id=${id}&app_key=${key}`;
+    const { APP_ID_TFL: idTfl, API_KEY_TFL: keyTfl } = keys;
+    const request = `https://api.tfl.gov.uk/line/victoria/stoppoints?app_id=${idTfl}&app_key=${keyTfl}`;
     fetch(request)
       .then(res => res.json())
       .then(victoriaLineStations => this.setState({
