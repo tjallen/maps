@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import keys from './keys';
+import MapContainer from './MapContainer';
 
 class App extends Component {
   constructor() {
@@ -26,6 +27,7 @@ class App extends Component {
         {victoriaLineStations.map((station, index) =>
           <li key={index}>{station.commonName}</li>
         )}
+        <MapContainer />
       </div>
     );
   }
