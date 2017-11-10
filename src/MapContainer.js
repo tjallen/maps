@@ -1,13 +1,38 @@
 import React, { Component } from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react';
 import keys from './keys';
 
 export class MapContainer extends Component {
-  handleMapClick(mapProps, map, evt) {
-    console.log(`map clicked at ${evt.latLng.lat()}, ${evt.latLng.lng()}`);
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingInfoWindow: false,
+    }
+    this.handleMapClick = this.handleMapClick.bind(this);
+    this.handleMarkerClick = this.handleMarkerClick.bind(this);
+  }
+  handleMarkerClick(props, marker, e) {
+    this.setState({
+      activeStation: props.title,
+      activeMarker: marker,
+      showingInfoWindow: true,
+    });
+  }
+  handleMapClick(props) {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null,
+      });
+    }
   }
   render() {
     const { stations } = this.props;
+    const {
+      activeMarker,
+      activeStation,
+      showingInfoWindow
+    } = this.state;
     const style = {
       height: '720px',
     };
@@ -27,9 +52,19 @@ export class MapContainer extends Component {
           key={index}
           title={station.commonName}
           name={station.commonName}
-          position={{ lat: station.lat, lng: station.lon }}
+          position={{
+            lat: station.lat,
+            lng: station.lon
+          }}
+          onClick={this.handleMarkerClick}
         />
       )}
+      <InfoWindow
+        marker={activeMarker}
+        visible={showingInfoWindow}
+      >
+        <p>{activeStation}</p>
+      </InfoWindow>
       </Map>
     );
   }
